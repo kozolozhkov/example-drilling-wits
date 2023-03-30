@@ -1,5 +1,5 @@
-import App from './App';
-import AppSettings from './AppSettings';
+import App from "./App";
+import AppSettings from "./AppSettings";
 
 export default {
   component: App,

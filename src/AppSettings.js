@@ -1,33 +1,23 @@
 import { Checkbox, FormControlLabel } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
-import { DEFAULT_SETTINGS } from './constants';
+import { DATASETS } from './constants';
 
-/**
- * @param {Object} props
- * @param {Object} props.app
- * @param {Object} props.appData
- * @param {Object} props.company
- * @param {(key: string, value: any) => void} props.onSettingChange
- * @param {{isExampleCheckboxChecked: boolean}} props.settings
- * @param {Object} props.user
- * @returns
- */
 function AppSettings({
   settings: apiSettings,
   onSettingChange,
   // appData,
   // app,
-  // user = {},
-  // company = {},
+  // user,
+  // company,
 }) {
-  const settings = { ...DEFAULT_SETTINGS, ...apiSettings };
+  const settings = { ...DATASETS, ...apiSettings };
   return (
     <div>
       <FormControlLabel
         label="Example checkbox"
         control={
           <Checkbox
-            data-testid="exampleCheckbox"
             checked={settings.isExampleCheckboxChecked}
             onChange={e => onSettingChange('isExampleCheckboxChecked', e.target.checked)}
           />
@@ -36,6 +26,22 @@ function AppSettings({
     </div>
   );
 }
+
+AppSettings.propTypes = {
+  app: PropTypes.shape({}).isRequired,
+  appData: PropTypes.shape({}).isRequired,
+  company: PropTypes.shape({}),
+  onSettingChange: PropTypes.func.isRequired,
+  settings: PropTypes.shape({
+    isExampleCheckboxChecked: PropTypes.bool
+  }).isRequired,
+  user: PropTypes.shape({}),
+};
+
+AppSettings.defaultProps = {
+  user: {},
+  company: {},
+};
 
 // Important: Do not change root component default export (AppSettings.js). Use it as container
 //  for your App Settings. It's required to make build and zip scripts work as expected;
